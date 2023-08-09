@@ -25,18 +25,7 @@ class New(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     pub_date = models.DateTimeField()
     is_scandal = models.BooleanField(default=False)
+    image_url = models.URLField(null=True)
 
     def __str__(self) -> str:
         return str(self.title)
-
-
-class Image(models.Model):
-    """
-    An image associated with a news article.
-    """
-
-    news = models.ForeignKey(New, on_delete=models.CASCADE)
-    image_url = models.URLField()
-
-    def __str__(self) -> str:
-        return f"{self.news} image"
