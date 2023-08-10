@@ -272,7 +272,7 @@
             <div class="container">
                 <div class="section_header">
                     <div class="cat_title">
-                        <div class="title">{{ today_news.0.category }}</div>
+                        <div class="title">{{ scandal_news.0.category }}</div>
                         <a href="#">СМ.всё</a>
                     </div>
                 </div>
@@ -283,28 +283,29 @@
                                 <div class="KPmainCard-img">
                                     <picture>
                                         <source media="(max-width: 699px)"
-                                            data-srcset="{{ today_news.0.small_image_url }}" class="lazy">
+                                            data-srcset="{{ scandal_news.0.small_image_url }}" class="lazy">
                                         <source media="(min-width: 700px)"
-                                            data-srcset="{{ today_news.0.large_image_url }}" class="lazy">
-                                        <img data-src="{{ today_news.0.large_image_url }} alt=" My Image" class="lazy">
+                                            data-srcset="{{ scandal_news.0.large_image_url }}" class="lazy">
+                                        <img data-src="{{ scandal_news.0.large_image_url }} alt=" My Image"
+                                            class="lazy">
                                     </picture>
                                 </div>
                                 <div class="KPmainCard-content">
                                     <div class="info">
                                         <div class="category">
-                                            {% if today_news.0.is_scandal %}
+                                            {% if scandal_news.0.is_scandal %}
                                             {{ "Скандалы" }}
                                             {% endif %}
                                         </div>
                                         <div class="date">
-                                            Сегодня, {{today_news.0.pub_date|date:"H:i" }}
+                                            Сегодня, {{scandal_news.0.pub_date|date:"H:i" }}
                                         </div>
                                     </div>
                                     <div class="title">
-                                        {{ today_news.0.title }}
+                                        {{ scandal_news.0.title }}
                                     </div>
                                     <div class="desc">
-                                        {{ today_news.0.description|first_sentence }}
+                                        {{ scandal_news.0.description|first_sentence }}
                                     </div>
                                 </div>
                             </a>
@@ -314,7 +315,7 @@
 
 
                     <div class="categoryPlus_right">
-                        {% for new in today_news|slice:"1:5" %}
+                        {% for new in scandal_news|slice:"1:5" %}
                         <div class="KPmain_item">
                             <a href="#">
                                 <div class="KPmainCard-img">

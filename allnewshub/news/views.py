@@ -1,6 +1,5 @@
-from datetime import timedelta, datetime
+from datetime import datetime
 from typing import Dict, Any
-from django.utils import timezone
 from django.shortcuts import render
 from .models import New, Category
 
@@ -8,20 +7,16 @@ from .models import New, Category
 def index(request):
     today = datetime.now()
     categories = Category.objects.all()
-    today_news = New.objects.filter(pub_date__date=today.date())
-    twentyfour_hours_ago = timezone.now() - timedelta(hours=24)
-    news = New.objects.filter(pub_date__gte=twentyfour_hours_ago).order_by("-pub_date")[
-        :17
-    ]
     region_category = Category.objects.get(name="Региональные новости")
-    region_news = New.objects.filter(category=region_category)
+    region_news = New.objects.filter(category=region_category).order_by("-pub_date")
+    news = New.objects.all().order_by("-pub_date")[:17]
+    today_news = New.objects.filter(pub_date__date=today.date())
+    scandal_news = New.objects.filter(is_scandal=True).order_by("-pub_date")
 
     context: Dict[str, Any] = {
         "categories": categories,
-        "today": today,
         "news": news,
         "region_news": region_news,
-        "today_news": today_news,
+        "scandal_news": scandal_news,
     }
-    print(region_news)
     return render(request, "news/index.html", context)
