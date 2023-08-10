@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime
-from typing import Dict
+from typing import Dict, Any
 from django.utils import timezone
 from django.shortcuts import render
 from .models import New, Category
