@@ -1,9 +1,8 @@
-from django.shortcuts import render
-
-from django.http import HttpResponse
-from .models import New, Category
-from django.utils import timezone
 from datetime import timedelta, datetime
+from typing import Dict
+from django.utils import timezone
+from django.shortcuts import render
+from .models import New, Category
 
 
 def index(request):
@@ -16,7 +15,8 @@ def index(request):
     ]
     region_category = Category.objects.get(name="Региональные новости")
     region_news = New.objects.filter(category=region_category)
-    context = {
+
+    context: Dict[str, Any] = {
         "categories": categories,
         "today": today,
         "news": news,
