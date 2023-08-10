@@ -25,7 +25,8 @@ class New(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     pub_date = models.DateTimeField()
     is_scandal = models.BooleanField(default=False)
-    image_url = models.URLField(null=True)
+    large_image_url = models.URLField(null=True)
+    small_image_url = models.URLField(null=True)
 
     def __str__(self) -> str:
         return str(self.title)

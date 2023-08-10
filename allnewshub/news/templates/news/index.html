@@ -1,3 +1,4 @@
+{% load custom_filters %}
 {% load static %}
 {% block content %}
 <!DOCTYPE html>
@@ -72,11 +73,11 @@
                             <div class="scroll_item splide__slide">
                                 <a href="#">
                                     <picture>
-                                        <source media="(max-width: 699px)" data-srcset="{{ region_new.image_url }}"
-                                            class="lazy">
-                                        <source media="(min-width: 700px)" data-srcset="{{ region_new.image_url }}"
-                                            class="lazy">
-                                        <img data-src="{{ region_new.image_url }}" alt="{{ region_new.title }}"
+                                        <source media="(max-width: 699px)"
+                                            data-srcset="{{ region_new.cmall_image_url }}" class="lazy">
+                                        <source media="(min-width: 700px)"
+                                            data-srcset="{{ region_new.large_image_url }}" class="lazy">
+                                        <img data-src="{{ region_new.large_image_url }}" alt="{{ region_new.title }}"
                                             class="scroll_img lazy">
                                     </picture>
                                     <div class="scroll_content">
@@ -104,11 +105,12 @@
                                 <a href="./article.html">
                                     <div class="KPmainCard-img">
                                         <picture>
-                                            <source media="(max-width: 699px)" data-srcset="{{ news.0.image_url }}"
+                                            <source media="(max-width: 699px)"
+                                                data-srcset="{{ news.0.small_image_url }}" class="lazy">
+                                            <source media="(min-width: 700px)"
+                                                data-srcset="{{ news.0.large_image_url }}" class="lazy">
+                                            <img data-src="{{ news.0.large_image_url }}" alt="news.0.title"
                                                 class="lazy">
-                                            <source media="(min-width: 700px)" data-srcset="{{ news.0.image_url }}"
-                                                class="lazy">
-                                            <img data-src="{{ news.0.image_url }}" alt="news.0.title" class="lazy">
                                         </picture>
                                         <picture>
                                             <source srcset="../img/_src/main_img.webp" type="image/webp">
@@ -130,17 +132,19 @@
                                 <a href="#">
                                     <div class="KPmainCard-img">
                                         <picture>
-                                            <source media="(max-width: 699px)" data-srcset="{{ news_item.image_url }}"
-                                                class="lazy">
-                                            <source media="(min-width: 700px)" data-srcset="{{ news_item.image_url }}"
-                                                class="lazy">
-                                            <img data-src="{{ news_item.image_url }}" alt="{{ news_item.title }}"
+                                            <source media="(max-width: 699px)"
+                                                data-srcset="{{ news_item.small_image_url }}" class="lazy">
+                                            <source media="(min-width: 700px)"
+                                                data-srcset="{{ news_item.large_image_url }}" class="lazy">
+                                            <img data-src="{{ news_item.large_image_url }}" alt="{{ news_item.title }}"
                                                 class="lazy">
                                         </picture>
                                     </div>
                                     <div class="info">
                                         <div class="category">
-                                            {{ news_item.category }}
+                                            {% if news_item.is_scandal %}
+                                            {{ "Скандалы" }}
+                                            {% endif %}
                                         </div>
                                         <div class="date">{{ news_item.date }}</div>
                                         <div class="label">
@@ -223,24 +227,26 @@
                     </div>
                 </div>
                 <div class="KPmain_categoryBlock">
-                    {% for kpmain_item in kpmain_items %}
+                    {% for new_item in news|slice:":4" %}
                     <div class="KPmain_item">
                         <a href="#">
                             <div class="KPmainCard-img">
                                 <picture>
-                                    <source media="(max-width: 699px)" data-srcset="{{ kpmain_item.image_small }}"
+                                    <source media="(max-width: 699px)" data-srcset="{{ new_item.small_image_url }}"
                                         class="lazy">
-                                    <source media="(min-width: 700px)" data-srcset="{{ kpmain_item.image_large }}"
+                                    <source media="(min-width: 700px)" data-srcset="{{ new_item.large_image_url }}"
                                         class="lazy">
-                                    <img data-src="{{ kpmain_item.image_large }}" alt="{{ kpmain_item.title }}"
+                                    <img data-src="{{ new_item.large_image_url }}" alt="{{ new_item.title }}"
                                         class="lazy">
                                 </picture>
                             </div>
                             <div class="info">
                                 <div class="category">
-                                    {{ kpmain_item.category }}
+                                    {% if new_item.is_scandal %}
+                                    {{ "Скандал" }}
+                                    {% endif %}
                                 </div>
-                                <div class="date">{{ kpmain_item.date }}</div>
+                                <div class="date">{{ new_item.date }}</div>
                                 <div class="label">
                                     <svg width="16" height="19" viewBox="0 0 16 19" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -252,7 +258,7 @@
                             </div>
                             <div class="KPmainCard-content">
                                 <div class="title">
-                                    {{ kpmain_item.title }}
+                                    {{ new_item.title }}
                                 </div>
                             </div>
                         </a>
@@ -266,7 +272,7 @@
             <div class="container">
                 <div class="section_header">
                     <div class="cat_title">
-                        <div class="title">шоу биз {{ news.0.category }}</div>
+                        <div class="title">{{ today_news.0.category }}</div>
                         <a href="#">СМ.всё</a>
                     </div>
                 </div>
@@ -276,31 +282,29 @@
                             <a href="#">
                                 <div class="KPmainCard-img">
                                     <picture>
-                                        <source media="(max-width: 699px)" data-srcset="{{ news.0.image_url }}"
-                                            class="lazy">
-                                        <source media="(min-width: 700px)" data-srcset="{{ news.0.image_url }}"
-                                            class="lazy">
-                                        <img data-src="{{ news.0.image_url }} alt=" My Image" class="lazy">
+                                        <source media="(max-width: 699px)"
+                                            data-srcset="{{ today_news.0.small_image_url }}" class="lazy">
+                                        <source media="(min-width: 700px)"
+                                            data-srcset="{{ today_news.0.large_image_url }}" class="lazy">
+                                        <img data-src="{{ today_news.0.large_image_url }} alt=" My Image" class="lazy">
                                     </picture>
                                 </div>
                                 <div class="KPmainCard-content">
                                     <div class="info">
                                         <div class="category">
-                                            {{ news.0.category }}
+                                            {% if today_news.0.is_scandal %}
+                                            {{ "Скандалы" }}
+                                            {% endif %}
                                         </div>
                                         <div class="date">
-                                            {% if news.0.pub_date.date == today.date %}
-                                            {{ "Сегодня,"|date:"H:i" }}
-                                            {% else %}
-                                            {{ news.0.pub_date|date:"d.m.Y, H:i" }}
-                                            {% endif %}
+                                            Сегодня, {{today_news.0.pub_date|date:"H:i" }}
                                         </div>
                                     </div>
                                     <div class="title">
-                                        {{ news.0.title }}
+                                        {{ today_news.0.title }}
                                     </div>
                                     <div class="desc">
-                                        {{ news.0.description }}
+                                        {{ today_news.0.description|first_sentence }}
                                     </div>
                                 </div>
                             </a>
@@ -310,28 +314,26 @@
 
 
                     <div class="categoryPlus_right">
-                        {% for new in news|slice:"1:5" %}
+                        {% for new in today_news|slice:"1:5" %}
                         <div class="KPmain_item">
                             <a href="#">
                                 <div class="KPmainCard-img">
                                     <picture>
-                                        <source media="(max-width: 699px)" data-srcset="{{ new.image_url }}"
+                                        <source media="(max-width: 699px)" data-srcset="{{ new.small_image_url }}"
                                             class="lazy">
-                                        <source media="(min-width: 700px)" data-srcset="{{ new.image_url }}"
+                                        <source media="(min-width: 700px)" data-srcset="{{ new.large_image_url }}"
                                             class="lazy">
-                                        <img data-src="{{ new.image_url }}" alt="My Image" class="lazy">
+                                        <img data-src="{{ new.large_image_url }}" alt="My Image" class="lazy">
                                     </picture>
                                 </div>
                                 <div class="info">
                                     <div class="category">
-                                        {{ new.category }}
+                                        {% if new.is_scandal %}
+                                        {{ "Скандалы" }}
+                                        {% endif %}
                                     </div>
                                     <div class="date">
-                                        {% if new.pub_date.date == today.date %}
-                                        {{ "Сегодня,"|date:"H:i" }}
-                                        {% else %}
-                                        {{ new.pub_date|date:"d.m.Y, H:i" }}
-                                        {% endif %}
+                                        Сегодня, {{new.pub_date|date:"H:i" }}
                                     </div>
                                     <div class="label">
                                         <svg width="16" height="19" viewBox="0 0 16 19" fill="none"
